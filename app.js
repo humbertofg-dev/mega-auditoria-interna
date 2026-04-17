@@ -125,8 +125,11 @@ function renderDashboard() {
             </div>
           </div>
         </div>
+        <div class="spotlight-footer">
+          <span class="mini-chip ${scoreClass(score)}">${scoreLabel(score)}</span>
+          <span class="spotlight-caption">Resumo visual da auditoria mais recente</span>
+        </div>
       </div>
-      <div class="mini-chip ${scoreClass(score)}">${scoreLabel(score)}</div>
     `;
   }
 

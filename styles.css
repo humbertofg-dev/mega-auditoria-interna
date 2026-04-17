@@ -214,6 +214,7 @@ body {
   margin: 20px 0 22px;
   flex-wrap: wrap;
   align-items: center;
+  scroll-snap-type: x proximity;
 }
 
 .tab-btn,
@@ -241,6 +242,7 @@ body {
   background: rgba(255, 255, 255, 0.56);
   color: var(--muted);
   font-weight: 800;
+  scroll-snap-align: start;
 }
 
 .tab-btn.active {
@@ -580,6 +582,19 @@ body {
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(216, 139, 50, 0.12), rgba(13, 122, 90, 0.08));
   color: var(--muted);
+}
+
+.spotlight-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.spotlight-caption {
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 .donut-legend {
@@ -1002,16 +1017,22 @@ textarea {
     padding: 18px;
   }
 
+  .hero h1 {
+    font-size: clamp(2rem, 10vw, 3rem);
+  }
+
   .tabs {
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 4px;
     scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
   }
 
   .tab-btn {
     flex: 0 0 auto;
-    min-height: 46px;
+    min-height: 48px;
+    padding-inline: 20px;
   }
 
   .audit-meta-form,
@@ -1043,6 +1064,10 @@ textarea {
 
   .spotlight-kpis {
     grid-template-columns: 1fr;
+  }
+
+  .spotlight-footer {
+    align-items: flex-start;
   }
 
   .action-row,
