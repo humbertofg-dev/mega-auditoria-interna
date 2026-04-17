@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mega Auditoria Interna</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Grupo Mega</p>
+        <h1>Auditoria Interna</h1>
+        <p>
+          Registre auditorias, responda perguntas com evidencias, acompanhe desempenho por percentual
+          e exporte relatorios com apresentacao executiva.
+        </p>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-ornament" aria-hidden="true">
+          <span class="ornament-card ornament-check"></span>
+          <span class="ornament-card ornament-chart"></span>
+          <span class="ornament-card ornament-camera"></span>
+        </div>
+        <p class="hero-label">Faixas de atingimento</p>
+        <div class="hero-legend">
+          <span class="legend-chip danger">Abaixo de 70%</span>
+          <span class="legend-chip warning">70% a 89%</span>
+          <span class="legend-chip success">90% a 100%</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Navegacao principal">
+      <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+      <button class="tab-btn" data-tab="auditoria">Nota Auditoria</button>
+      <button class="tab-btn" data-tab="relatorios">Relatorios</button>
+      <button class="tab-btn" data-tab="configuracoes">Configuracoes</button>
+    </nav>
+
+    <main>
+      <section id="dashboardTab" class="tab-panel active">
+        <div class="dashboard-grid">
+          <section class="panel icon-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Visao geral</p>
+                <h2>Indicadores do programa</h2>
+              </div>
+              <div class="heading-icon metrics-icon" aria-hidden="true"></div>
+            </div>
+            <div id="metricsGrid" class="metrics-grid"></div>
+          </section>
+
+          <section class="panel icon-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Ultima auditoria</p>
+                <h2>Panorama de respostas</h2>
+              </div>
+              <div class="heading-icon donut-icon" aria-hidden="true"></div>
+            </div>
+            <div id="lastAuditSpotlight" class="last-audit-spotlight"></div>
+          </section>
+
+          <section class="panel icon-panel full-span">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Historico recente</p>
+                <h2>Ultimas auditorias realizadas</h2>
+              </div>
+              <div class="heading-icon history-icon" aria-hidden="true"></div>
+            </div>
+            <div id="recentAudits" class="audit-history-grid"></div>
+          </section>
+
+          <section class="panel icon-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Pontos de atencao</p>
+                <h2>Ultimas nao conformidades</h2>
+              </div>
+              <div class="heading-icon alert-icon" aria-hidden="true"></div>
+            </div>
+            <div id="latestFindings" class="stack-list"></div>
+          </section>
+
+          <section class="panel icon-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Pausadas</p>
+                <h2>Auditorias para reinicio</h2>
+              </div>
+              <div class="heading-icon pause-icon" aria-hidden="true"></div>
+            </div>
+            <div id="pausedAudits" class="stack-list"></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="auditoriaTab" class="tab-panel">
+        <div class="auditoria-grid">
+          <section class="panel icon-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Cadastro</p>
+                <h2>Identificacao da auditoria</h2>
+              </div>
+              <div id="auditModeBadge" class="mini-chip">Nova auditoria</div>
+            </div>
+
+            <form id="auditMetaForm" class="audit-meta-form">
+              <label>
+                Unidade
+                <input name="unit" placeholder="Ex.: Mega Logistica - Matriz" required>
+              </label>
+              <label>
+                Area auditada
+                <input name="area" placeholder="Ex.: Operacoes" required>
+              </label>
+              <label>
+                Auditor responsavel
+                <input name="auditor" placeholder="Ex.: Humberto Gomes" required>
+              </label>
+              <label>
+                Data da auditoria
+                <input type="date" name="auditDate" required>
+              </label>
+              <label class="full-width">
+                Objetivo ou escopo
+                <textarea name="scope" rows="3" placeholder="Defina o foco da auditoria" required></textarea>
+              </label>
+            </form>
+          </section>
+
+          <section class="panel icon-panel full-span">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Aplicacao</p>
+                <h2>Perguntas da auditoria</h2>
+              </div>
+              <div id="draftSummary" class="draft-summary"></div>
+            </div>
+
+            <div id="questionnaireList" class="questionnaire-list"></div>
+
+            <div class="action-row">
+              <button id="pauseAuditBtn" class="ghost-btn dark">Pausar auditoria</button>
+              <button id="cancelAuditEditBtn" class="ghost-btn dark hidden">Cancelar edicao</button>
+              <button id="saveDraftBtn" class="ghost-btn dark">Salvar em andamento</button>
+              <button id="completeAuditBtn" class="primary-btn">Concluir auditoria</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="relatoriosTab" class="tab-panel">
+        <section class="panel icon-panel">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Exportacao</p>
+              <h2>Relatorios de auditoria</h2>
+            </div>
+            <div class="heading-icon report-icon" aria-hidden="true"></div>
+          </div>
+          <div id="reportsList" class="reports-list"></div>
+        </section>
+      </section>
+
+      <section id="configuracoesTab" class="tab-panel">
+        <div class="config-grid">
+          <section class="panel icon-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Banco de perguntas</p>
+                <h2>Importar ou revisar questionario</h2>
+              </div>
+              <div class="heading-icon settings-icon" aria-hidden="true"></div>
+            </div>
+
+            <div class="import-card">
+              <input id="questionFileInput" type="file" accept=".json,.csv,.txt,.xlsx">
+              <button id="restoreQuestionsBtn" class="ghost-btn dark">Restaurar perguntas padrao</button>
+              <p class="helper-text">
+                A planilha anexada ja foi incorporada como base padrao. Novas importacoes aceitam JSON, CSV, TXT e XLSX.
+              </p>
+            </div>
+
+            <form id="questionEditorForm" class="question-editor-form">
+              <div class="editor-header">
+                <strong id="questionEditorTitle">Adicionar pergunta</strong>
+                <button id="cancelQuestionEditBtn" class="ghost-btn dark hidden" type="button">Cancelar edicao</button>
+              </div>
+              <label>
+                Ordem
+                <input name="order" placeholder="Ex.: 2.3.4">
+              </label>
+              <label>
+                Categoria
+                <input name="category" placeholder="Ex.: Recebimento" required>
+              </label>
+              <label>
+                Tipo
+                <select name="kind" required>
+                  <option value="question">Pergunta</option>
+                  <option value="section">Secao</option>
+                </select>
+              </label>
+              <label>
+                Peso
+                <input name="weight" type="number" min="0" step="1" value="10" required>
+              </label>
+              <label class="full-width">
+                Texto
+                <textarea name="text" rows="3" placeholder="Digite a pergunta ou o titulo da secao" required></textarea>
+              </label>
+              <button class="primary-btn" type="submit">Salvar pergunta</button>
+            </form>
+          </section>
+
+          <section class="panel icon-panel">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">Estrutura atual</p>
+                <h2>Itens cadastrados</h2>
+              </div>
+              <div class="heading-icon list-icon" aria-hidden="true"></div>
+            </div>
+            <div id="questionBankPreview" class="question-bank-preview"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="questionCardTemplate">
+    <article class="question-card">
+      <div class="question-top">
+        <div>
+          <p class="question-category"></p>
+          <h3 class="question-text"></h3>
+        </div>
+        <span class="weight-chip"></span>
+      </div>
+      <div class="response-buttons">
+        <button class="response-btn conform-btn" data-status="Conforme" type="button">Conforme</button>
+        <button class="response-btn nonconform-btn" data-status="Nao Conforme" type="button">Nao Conforme</button>
+        <button class="response-btn na-btn" data-status="N/A" type="button">N/A</button>
+      </div>
+      <div class="response-detail hidden">
+        <label class="full-width">
+          Descricao da nao conformidade
+          <textarea class="response-note" rows="3" placeholder="Descreva o desvio identificado"></textarea>
+        </label>
+        <label class="upload-label">
+          Anexar foto
+          <input class="response-photo" type="file" accept="image/*">
+        </label>
+        <div class="photo-preview-wrap hidden">
+          <img class="photo-preview" alt="Preview da evidencia">
+          <p class="photo-name"></p>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="reportCardTemplate">
+    <article class="report-card">
+      <div class="report-main">
+        <div>
+          <p class="report-unit"></p>
+          <h3 class="report-area"></h3>
+        </div>
+        <div class="report-score"></div>
+      </div>
+      <div class="report-donut"></div>
+      <p class="report-meta"></p>
+      <div class="report-actions">
+        <button class="small-btn edit-report-btn" type="button">Editar auditoria</button>
+        <button class="small-btn resume-report-btn" type="button">Retomar</button>
+        <button class="small-btn export-report-btn" type="button">Exportar PDF</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="./question-bank.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
